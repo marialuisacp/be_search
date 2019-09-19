@@ -1,0 +1,9 @@
+index_en/
+index_pt/
+data_pt/
+data_en/
+target/
+models/
+lib/
+texts/
+src/main/resources/application.properties
