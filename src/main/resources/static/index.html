@@ -1,0 +1,379 @@
+<!doctype html>
+
+<html lang="pt"> 
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="Estudo da Bíblia Sagrada.">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Be</title>
+		<link rel="shortcut icon" href="site/favicon.png" />
+
+		<!-- Page styles -->
+		<link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,700italic,700,500italic,500,300italic,300,400italic' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="site/material.min.css">
+		<link rel="stylesheet" href="site/styles.css">
+		<link rel="stylesheet" href="site/animate.css">
+
+		<!-- Css owl Carousel  -->
+		<link rel="stylesheet" href="site/lib/owl-carousel/owl.carousel.css">
+	    <link rel="stylesheet" href="site/lib/owl-carousel/owl.theme.css">
+	    <link rel="stylesheet" href="site/lib/owl-carousel/owl.transitions.css">
+
+		<style>
+			#view-source {
+				position: fixed;
+				display: block;
+				right: 0;
+				bottom: 0;
+				margin-right: 40px; 
+				margin-bottom: 40px;
+				z-index: 900;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+			<div class="android-header mdl-layout__header mdl-layout__header--waterfall">
+				<div class="mdl-layout__header-row">
+					<span class="android-title mdl-layout-title">
+						<img class="android-logo-image" src="site/images/be-logo.png">
+					</span>
+					<!-- Add spacer, to align navigation to the right in desktop -->
+					<div class="android-header-spacer mdl-layout-spacer"></div>
+					
+					<!-- Navigation --> 
+					<div class="android-navigation-container">
+						<nav class="android-navigation mdl-navigation">
+							<a class="mdl-navigation__link mdl-typography--text-uppercase navigation-effect-about">Sobre o projeto</a>
+							<a class="mdl-navigation__link mdl-typography--text-uppercase navigation-effect-app" >Baixe o app</a>
+						</nav>
+					</div>
+					<span class="android-mobile-title mdl-layout-title">
+						<img class="android-logo-image" src="site/images/be-logo.png">
+					</span>
+					<button class="android-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">
+						<i class="material-icons">more_vert</i>
+					</button>
+					<ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
+						<a href="https://play.google.com/store/apps/details?id=com.br.biblexplorer" target="_blank">
+							<li class="mdl-menu__item">Android</li>
+						</a>
+						<a href="https://itunes.apple.com/us/app/biblexplorer/id1144180913" target="_blank">
+							<li class="mdl-menu__item">iOS</li>
+						</a>
+					</ul>
+				</div>
+			</div>
+
+			<div class="android-drawer mdl-layout__drawer">
+				<span class="mdl-layout-title">
+					<img class="android-logo-image" src="site/images/be-logo-white.png">
+				</span>
+				<nav class="mdl-navigation">
+					<a class="mdl-navigation__link navigation-effect-about" >Sobre o projeto</a>
+					<a class="mdl-navigation__link navigation-effect-app">Aplicativo</a>
+				</nav>
+			</div>
+
+			<div class="android-content mdl-layout__content">
+				<a name="top"></a>
+				<div class="android-be-together-section mdl-typography--text-center bgParallax">
+					<div class="fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;">
+						<div class="logo-font android-slogan">
+							Que tal uma ferramenta pra estudar a Bíblia Sagrada? 
+						</div>
+						<div class="logo-font android-sub-slogan"> 
+							É exatamente isto que estamos fazendo para você!
+						</div>
+					</div>
+					<div class="logo-font android-create-character">
+						Saiba mais
+					</div>
+
+					<a class="navigation-effect-about">
+						<button class="android-fab mdl-button mdl-button--colored mdl-js-button mdl-button--fab mdl-js-ripple-effect">
+							<i class="material-icons">expand_more</i>
+						</button>
+					</a>
+				</div>
+				<div id="about" class="android-screen-section mdl-typography--text-center">
+					<a name="screens"></a>
+					<div class="mdl-typography--display-1-color-contrast fadeInRight animated" style="visibility: visible; animation-name: fadeInRight;">
+						O que é este projeto?
+					</div>
+					<div class="area-text">
+						<p>
+							Biblexplorer é uma ferramenta online <span class="color-project">(gratuita)</span> que visa a exploração e o estudo da Bíblia Sagrada.
+							O objetivo deste projeto é estimular o interesse das pessoas na Bíblia e oferecer conteúdo informativo para estudo. 
+						</p>
+						<p>
+							Este trabalho se encontra em fase de desenvolvimento e a previsão de lançamento é no começo de 2017. Porém uma versão simplificada do projeto já se encontra disponível para dispositivos móveis <span class="color-project">(android e iOS)</span> em fase de testes.
+						</p>
+					</div>
+				</div>
+				<div class="android-wear-section bgParallax">
+					<div class="android-wear-band">
+						<div class="android-wear-band-text">
+							<div class="mdl-typography--display-2 mdl-typography--font-thin fadeInLeft animated" style="visibility: visible; animation-name: fadeInLeft;">
+								Visualizações da Bíblia Sagrada
+							</div>
+							<p class="mdl-typography--headline mdl-typography--font-thin">
+								Você pode ver a Bíblia de uma forma diferente, através de gráficos e visualizações interativas.
+							</p>
+							<p>
+								<!-- <a class="mdl-typography--font-regular mdl-typography--text-uppercase android-alt-link" href="">
+									Saber mais&nbsp;<i class="material-icons">chevron_right</i>
+								</a> -->
+							</p>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="android-more-section">
+					<div class="android-section-title mdl-typography--display-1-color-contrast">
+						O que este trabalho vai oferecer?
+					</div>
+					<div class="android-card-container mdl-grid">
+						<div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
+							<div class="mdl-card__media">
+								<img src="site/images/more-from-1.png">
+							</div>
+							<div class="mdl-card__title">
+								 <h4 class="mdl-card__title-text">
+								 	Leitura e descoberta da Bíblia
+								 </h4>
+							</div>
+							<div class="mdl-card__supporting-text">
+								<span class="mdl-typography--font-light mdl-typography--subhead">
+									Ler a Bíblia de uma forma simples, com gráficos e informações sobre os textos e dicionário bíblico para as palavras difíceis.
+								</span>
+							</div>
+							<!-- <div class="mdl-card__actions">
+								 <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="">
+									 Make the switch
+									 <i class="material-icons">chevron_right</i>
+								 </a>
+							</div> -->
+						</div>
+
+						<div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
+							<div class="mdl-card__media">
+								<img src="site/images/more-from-4.png">
+							</div>
+							<div class="mdl-card__title">
+								 <h4 class="mdl-card__title-text">
+								 	Visualizações de dados
+								 </h4>
+							</div>
+							<div class="mdl-card__supporting-text">
+								<span class="mdl-typography--font-light mdl-typography--subhead">
+									Um conjunto de conteúdo visual com mapas, gráficos sobre a Bíblia Sagrada.
+								</span>
+							</div>
+							<!-- <div class="mdl-card__actions">
+								 <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="">
+									 androidify.com
+									 <i class="material-icons">chevron_right</i>
+								 </a>
+							</div> -->
+						</div>
+
+						<div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
+							<div class="mdl-card__media">
+								<img src="site/images/more-from-2.png">
+							</div>
+							<div class="mdl-card__title">
+								 <h4 class="mdl-card__title-text">
+								 	Pesquisa
+								 </h4>
+							</div>
+							<div class="mdl-card__supporting-text">
+								<span class="mdl-typography--font-light mdl-typography--subhead">
+									Já pensou em uma máquina de busca na Bíblia, onde você digita um termo e a ferramenta te retorna os textos bíblicos relacionados à aquele assunto? É mais ou menos isso.
+								</span>
+							</div>
+							<!-- <div class="mdl-card__actions">
+								 <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="">
+									 Download now
+									 <i class="material-icons">chevron_right</i>
+								 </a>
+							</div> -->
+						</div>
+
+						<div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
+							<div class="mdl-card__media">
+								<img src="site/images/more-from-3.png">
+							</div>
+							<div class="mdl-card__title">
+								 <h4 class="mdl-card__title-text">
+								 	Be Aplicativo
+								 </h4>
+							</div>
+							<div class="mdl-card__supporting-text">
+								<span class="mdl-typography--font-light mdl-typography--subhead">
+									Uma versão para dispositivos Android e iOS onde você pode ler a Bíblia fazer suas próprias anotações dos textos bíblicas. 
+								</span>
+							</div>
+							<!-- <div class="mdl-card__actions">
+								 <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="">
+									 Find apps
+									 <i class="material-icons">chevron_right</i>
+								 </a>
+							</div> -->
+						</div>
+					</div>
+				</div>
+
+				<div class="android-customized-section">
+					<!-- <div class="android-customized-section-text">
+						<div class="mdl-typography--font-light mdl-typography--display-1-color-contrast">
+							Aplicativo
+						</div>
+						<p class="mdl-typography--font-light">
+							Uma versão para dispositivos móveis para as plataformas Android e iOS já se encontra disponível.
+						</p>
+						<div class="area-app">
+							<img class="area-app-img" src="site/images/mobile.png">
+							<div class="area-app-content">
+								<p class="mdl-typography--font-light">
+									Funcionalidades
+								</p>
+								<ul class="mdl-typography--font-light">
+									<li>Ler a Bíblia</li>
+									<li>Visualizações da Bíblia</li>
+									<li>Fazer anotações</li>
+									<li>Salvar versículos</li>
+								</ul>
+							</div>
+						</div>
+						<p>
+							Baixa ai e ajude a gente a testar!
+						</p>
+					</div> -->
+					<!-- <div class="android-customized-section-image"></div> -->
+					<div class="android-customized-section-text" id="app">
+						<div class="mdl-typography--font-light mdl-typography--display-1-color-contrast">
+							Aplicativo
+						</div>
+						<p class="mdl-typography--font-light">
+							Uma versão para dispositivos móveis para as plataformas Android e iOS já se encontra disponível. 
+						</p>
+						<div class="box-features">
+							<img src="site/images/mobile.png">
+							<div class="area-features">
+								<div class="feature-app">
+									Funcionalidades
+								</div>
+								<ul class="feature-app"> 
+									<li>  <i class="material-icons">chevron_right</i>&nbsp;  Ler a Bíblia</li>
+									<li>  <i class="material-icons">chevron_right</i>&nbsp;  Visualizações da Bíblia</li>
+									<li>  <i class="material-icons">chevron_right</i>&nbsp;  Fazer anotações</li>
+									<li>  <i class="material-icons">chevron_right</i>&nbsp;  Salvar versículos</li>
+								</ul>
+								
+								<div class="feature-app">
+									Baixa ai e ajude a gente a testar!
+								</div>
+								<a href="https://play.google.com/store/apps/details?id=com.br.biblexplorer" target="_blank">
+									<img class="stores" src="site/images/g_play.png">
+								</a>
+								<a href="https://itunes.apple.com/us/app/biblexplorer/id1144180913" target="_blank">
+									<img class="stores" src="site/images/app_store.png">
+								</a>						
+
+							</div>
+						</div>
+					</div>
+
+					<main role="main" class="main">
+						<section id="screenshot" class="scroll-section section-space screenshot">
+						    <div class="container">
+						        <div class="row">
+						            <div class="col-lg-12 text-center">
+						                <div class="section-head">
+						                   	<div class="mdl-typography--font-light mdl-typography--display-1-color-contrast">
+						                   		Telas do aplicativo
+						                   	</div>
+											<p class="mdl-typography--font-light p-alone">
+												Veja algumas telas do aplicativo:
+											</p>
+						                </div>
+						            </div>
+						        </div>
+						    </div>
+						    <div class="screenshoot-wrapper">
+						        <div class="container-width">
+						            <div class="container">
+						                <div class="screenshoot-area">
+						                    <div id="screenshoot_slider" class="screenshoot-slider">
+						                    	<div class="single-screenshoot"><img class="screenshots-app" src="site/images/print_app_09.png" alt="screenshoot"></div>
+						                    	<div class="single-screenshoot"><img class="screenshots-app" src="site/images/print_app_00.png" alt="screenshoot"></div>
+						                    	<div class="single-screenshoot"><img class="screenshots-app" src="site/images/print_app_01.png" alt="screenshoot"></div>
+						                        <div class="single-screenshoot"><img class="screenshots-app" src="site/images/print_app_02.png" alt="screenshoot"></div>
+						                        <div class="single-screenshoot"><img class="screenshots-app" src="site/images/print_app_03.png" alt="screenshoot"></div>
+						                        <div class="single-screenshoot"><img class="screenshots-app" src="site/images/print_app_04.png" alt="screenshoot"></div>
+						                        <div class="single-screenshoot"><img class="screenshots-app" src="site/images/print_app_13.png" alt="screenshoot"></div>
+						                        <div class="single-screenshoot"><img class="screenshots-app" src="site/images/print_app_05.png" alt="screenshoot"></div>
+						                        <div class="single-screenshoot"><img class="screenshots-app" src="site/images/print_app_06.png" alt="screenshoot"></div>
+						                        <div class="single-screenshoot"><img class="screenshots-app" src="site/images/print_app_07.png" alt="screenshoot"></div>
+						                        <div class="single-screenshoot"><img class="screenshots-app" src="site/images/print_app_10.png" alt="screenshoot"></div>
+						                        <div class="single-screenshoot"><img class="screenshots-app" src="site/images/print_app_11.png" alt="screenshoot"></div>
+						                        <div class="single-screenshoot"><img class="screenshots-app" src="site/images/print_app_14.png" alt="screenshoot"></div>
+						                        <div class="single-screenshoot"><img class="screenshots-app" src="site/images/print_app_12.png" alt="screenshoot"></div>
+						                        <div class="single-screenshoot"><img class="screenshots-app" src="site/images/print_app_15.png" alt="screenshoot"></div>
+						                        <div class="single-screenshoot"><img class="screenshots-app" src="site/images/print_app_08.png" alt="screenshoot"></div>
+						                        <div class="single-screenshoot"></div>
+						                        <div class="single-screenshoot"></div>
+						                    </div>
+						                    <div class="mobile-bg hidden-xs">
+						                        <img src="site/images/iphone-no-screen.png" alt="iphone with no bg">
+						                    </div>
+						                </div>
+						            </div>
+						            <a href="#" class="slider-arrow right-arrow screenshoot-arrow">
+						            	<i class="material-icons">keyboard_arrow_right</i>
+						            </a>
+						            <a href="#" class="slider-arrow left-arrow screenshoot-arrow">
+						            	<i class="material-icons">keyboard_arrow_left</i>
+						            </a>
+						        </div>
+						    </div>
+						</section>
+					</main>
+				</div>
+
+				<footer class="android-footer mdl-mega-footer">
+					
+					<div class="mdl-mega-footer--middle-section">
+						<div class="mdl-typography--font-light  verse-footer"> 
+							"Toda a Escritura é inspirada por Deus e útil para o ensino, para a repreensão, para a correção e para a instrução na justiça"
+							
+							<br>
+							2 Timóteo 3:16
+						</div>
+						<p class="mdl-typography--font-light">Biblexplorer © 2016.</p>
+					</div>
+
+				</footer>
+			</div>
+		</div>
+
+		<!-- Jquery -->
+		<!-- <script src="site/lib/jquery/jquery.min.js"></script> -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		
+		<!-- Owl Carousel -->
+		<script type="text/javascript" src="site/lib/owl-carousel/owl.carousel.min.js"></script>
+
+		<script type="text/javascript" src="site/scripts.js"></script>
+
+		<script src="site/material.min.js"></script>
+	
+
+	</body>
+</html>

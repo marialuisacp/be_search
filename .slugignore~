@@ -1,0 +1,9 @@
+# Heres a comment
+*.psd
+*.pdf
+/test
+/spec
+/data
+/src/test
+/.git
+*.png
