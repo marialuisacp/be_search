@@ -8,6 +8,8 @@ import java.util.List;
 import org.deeplearning4j.examples.nlp.word2vec.TSNEDataVisualization;
 import org.deeplearning4j.examples.nlp.word2vec.TermDimension;
 
+import org.deeplearning4j.models.word2vec.Word2Vec;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -247,7 +249,8 @@ public class DataController {
     public ArrayList<TermDimension> getTSNE(
     		@RequestParam(value="words", defaultValue="") ArrayList<String> words
     	) throws IOException {
-		return TSNEDataVisualization.getTSNE(words);
+		Word2Vec vec = vecApiWikipedia.getModel();
+		return TSNEDataVisualization.getTSNE(words, vec);
     }
 	
 	@CrossOrigin(origins = "*")

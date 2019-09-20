@@ -36,7 +36,7 @@ public class TSNEDataVisualization {
 	
 	private static Logger log = LoggerFactory.getLogger(TSNEDataVisualization.class);
 	
-	public static ArrayList<TermDimension> getTSNE(ArrayList<String> words) throws IOException {        
+	public static ArrayList<TermDimension> getTSNE(ArrayList<String> words, Word2Vec vec) throws IOException {        
 		int iterations = 100;
         DataTypeUtil.setDTypeForContext(DataBuffer.Type.DOUBLE);
         List<String> cacheList = new ArrayList<>(); 
@@ -44,7 +44,7 @@ public class TSNEDataVisualization {
 
         log.info("Load & Vectorize data....");
         // Word2Vec vec = WordVectorSerializer.readWord2VecModel(localPath + "/models/trainText.txt");
-        Word2Vec vec = WordVectorSerializer.loadFullModel("models/train_model_wikipedia.txt");
+//        Word2Vec vec = WordVectorSerializer.loadFullModel("models/train_model_wikipedia.txt");
         
     	String filePath = localPath + "/models/test_model_tsne.txt";
     	

@@ -59,4 +59,8 @@ public class Word2VecApi {
 	public double[] getVectorByTerm(String term) {
 		return this.vec.getWordVector(term);
 	}
+	
+	public Word2Vec getModel() {
+		return this.vec;
+	}
 }
