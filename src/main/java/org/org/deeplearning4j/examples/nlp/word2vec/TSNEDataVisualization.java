@@ -38,14 +38,14 @@ public class TSNEDataVisualization {
 	
 	public static ArrayList<TermDimension> getTSNE(ArrayList<String> words, Word2Vec vec) throws IOException {        
 		int iterations = 100;
-        DataTypeUtil.setDTypeForContext(DataBuffer.Type.DOUBLE);
+//        DataTypeUtil.setDTypeForContext(DataBuffer.Type.DOUBLE);
         List<String> cacheList = new ArrayList<>(); 
         String localPath = System.getProperty("user.dir");    
 
         log.info("Load & Vectorize data....");
-        // Word2Vec vec = WordVectorSerializer.readWord2VecModel(localPath + "/models/trainText.txt");
+//         Word2Vec vec = WordVectorSerializer.readWord2VecModel(localPath + "/models/trainText.txt");
 //        Word2Vec vec = WordVectorSerializer.loadFullModel("models/train_model_wikipedia.txt");
-        
+                
     	String filePath = localPath + "/models/test_model_tsne.txt";
     	
     	Files.deleteIfExists(Paths.get(filePath));

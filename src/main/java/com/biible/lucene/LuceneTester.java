@@ -33,7 +33,6 @@ public class LuceneTester {
 	}
 
 public List<Verse> searchTerms(String term, LuceneTester tester, int maxSearch){
-
 	   List<Verse> result = new ArrayList();
 	   try {
 		   if(maxSearch == 0)
@@ -168,6 +167,4 @@ public List<Verse> searchTerms(String term, LuceneTester tester, int maxSearch){
       return test_files;
    }
    
-   
-  	
 }

@@ -15,6 +15,8 @@ import org.deeplearning4j.text.stopwords.StopWords;
 import org.deeplearning4j.text.tokenization.tokenizer.preprocessor.CommonPreprocessor;
 import org.deeplearning4j.text.tokenization.tokenizerfactory.DefaultTokenizerFactory;
 import org.deeplearning4j.text.tokenization.tokenizerfactory.TokenizerFactory;
+import org.nd4j.linalg.api.buffer.DataBuffer;
+import org.nd4j.linalg.api.buffer.util.DataTypeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -187,9 +189,12 @@ public class Word2VecUptrainingExample {
     }
     
     public static Word2Vec importModelWikipedia() throws FileNotFoundException {
-    	 Word2Vec vec = WordVectorSerializer.readWord2VecModel("models/trainBible.txt");
-//    	Word2Vec vec = WordVectorSerializer.loadFullModel("models/train_model_wikipedia.txt");
+    	
+    	DataTypeUtil.setDTypeForContext(DataBuffer.Type.DOUBLE);
+//    	Word2Vec vec = WordVectorSerializer.readWord2VecModel("models/trainBible.txt");
+    	Word2Vec vec = WordVectorSerializer.loadFullModel("models/train_model_wikipedia.txt");
     	log.info("loaded from model wikipedia");
+
         return vec;
     }
     

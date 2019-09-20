@@ -14,7 +14,7 @@ import org.deeplearning4j.models.word2vec.Word2Vec;
 public class Word2VecApi {
 	public String filePath;
 	public Word2Vec vec;
-	
+
 	public Word2VecApi() throws IOException {
 		Word2VecUptrainingExample.setStopWordsPt();
 
@@ -57,8 +57,7 @@ public class Word2VecApi {
 	public Term getMostSimilarWords(String term, List<String> arrayTerms, int size) {
 		return Word2VecUptrainingExample.getMostSimilarFromArray(term, arrayTerms, size, this.vec);
 	}
-	
-	
+		
 	public double[] getVectorByTerm(String term) {
 		return this.vec.getWordVector(term);
 	}
@@ -67,8 +66,7 @@ public class Word2VecApi {
 		return this.vec;
 	}
 	
-	public ArrayList<TermDimension> getTSNE(words, vec) {
+	public ArrayList<TermDimension> getTSNE(ArrayList<String> words) throws IOException {
 		return TSNEDataVisualization.getTSNE(words, this.vec);
 	}
-	
 }
