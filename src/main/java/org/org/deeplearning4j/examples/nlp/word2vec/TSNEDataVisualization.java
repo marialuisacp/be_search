@@ -3,9 +3,11 @@ package org.deeplearning4j.examples.nlp.word2vec;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -26,9 +28,6 @@ import org.nd4j.linalg.api.ndarray.INDArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.dataformat.yaml.snakeyaml.scanner.Scanner;
-
-import org.deeplearning4j.arbiter.util.ClassPathResource;
 //import org.springframework.core.io.ClassPathResource;
 //import org.springframework.core.io.Resource;
 import org.deeplearning4j.berkeley.Pair;
@@ -37,39 +36,32 @@ public class TSNEDataVisualization {
 	
 	private static Logger log = LoggerFactory.getLogger(TSNEDataVisualization.class);
 	
-	public static void getTSNE() throws IOException {        
+	public static ArrayList<TermDimension> getTSNE(ArrayList<String> words) throws IOException {        
 		int iterations = 100;
-        //create an n-dimensional array of doubles
         DataTypeUtil.setDTypeForContext(DataBuffer.Type.DOUBLE);
-        List<String> cacheList = new ArrayList<>(); //cacheList is a dynamic array of strings used to hold all words
-
-        //STEP 2: Turn text input into a list of words
-        log.info("Load & Vectorize data....");
-//        ClassPathResource resource = new ClassPathResource("/var/www/html/workspace/biible_server/texts/dataText.txt");
-//        File wordFile = resource.getFile();   //Open the file        
-        
-
-        Word2Vec vec = WordVectorSerializer.readWord2VecModel("models/trainText.txt");
-//        
+        List<String> cacheList = new ArrayList<>(); 
         String localPath = System.getProperty("user.dir");    
+
+        log.info("Load & Vectorize data....");
+        // Word2Vec vec = WordVectorSerializer.readWord2VecModel(localPath + "/models/trainText.txt");
+        Word2Vec vec = WordVectorSerializer.loadFullModel("models/train_model_wikipedia.txt");
+        
     	String filePath = localPath + "/models/test_model_tsne.txt";
     	
     	Files.deleteIfExists(Paths.get(filePath));
     	File emptyFile = new File(filePath);
     	emptyFile.createNewFile();
-	
-        String[] words = {"jesus", "rei", "messias", "noé", "diabo", "conhecimento", "reino", "cordeiro", "vivo", "nascimento", "morte"};
         BufferedWriter buffWrite = new BufferedWriter(new FileWriter(filePath));
-
-		int j = 0;
+        int hasWord = 0;
 		
-		for (j = 0; j < words.length; j++) {
+		for (String word : words) {
 			String line = "";
-			double[] wordVector = vec.getWordVector(words[j]);
+			double[] wordVector = vec.getWordVector(word);
 			
-			if(vec.getWordVector(words[j]) != null) {
+			if(vec.getWordVector(word) != null) {
+				hasWord = 1;
 				int i = 0;
-				line += words[j] + " ";
+				line += word + " ";
 		        for (i = 0; i < wordVector.length; i++) {
 		        	line += (wordVector[i] + " ");
 		        }
@@ -78,35 +70,56 @@ public class TSNEDataVisualization {
 			}
 		}
 		buffWrite.close();
-           
-		File model = new File(filePath);
-        Pair<InMemoryLookupTable, VocabCache> vectors = WordVectorSerializer.loadTxt(model);
-        VocabCache cache = vectors.getSecond();
-        INDArray weights = vectors.getFirst().getSyn0();
-
-        for(int i = 0; i < cache.numWords(); i++)   //seperate strings of words into their own list
-            cacheList.add(cache.wordAtIndex(i));
-
-        //STEP 3: build a dual-tree tsne to use later
-        log.info("Build model....");
-        BarnesHutTsne tsne = new BarnesHutTsne.Builder()
-                .setMaxIter(iterations).theta(0.5)
-                .normalize(false)
-                .learningRate(500)
-                .useAdaGrad(false)
-//                .usePca(false)
-                .build();
-
-        //STEP 4: establish the tsne values and save them to a file
-        log.info("Store TSNE Coordinates for Plotting....");
-        String outputFile = "models/test_tSNEmodel.csv";
-        ((java.io.File) new File(outputFile)).getParentFile().mkdirs();
-        tsne.plot(weights,2,cacheList,outputFile);
-        //This tsne will use the weights of the vectors as its matrix, have two dimensions, use the words strings as
-        //labels, and be written to the outputFile created on the previous line
-	}
+		
+		ArrayList<TermDimension> termsDim = new ArrayList<TermDimension>();
+		if(hasWord == 1) {
+			File model = new File(filePath);
+	        Pair<InMemoryLookupTable, VocabCache> vectors = WordVectorSerializer.loadTxt(model);
+	        VocabCache cache = vectors.getSecond();
+	        INDArray weights = vectors.getFirst().getSyn0();
 	
-	public static void main(String args[]) throws IOException  {			
-		getTSNE();
+	        for(int i = 0; i < cache.numWords(); i++)
+	            cacheList.add(cache.wordAtIndex(i));
+	
+	        log.info("Build model....");
+	        BarnesHutTsne tsne = new BarnesHutTsne.Builder()
+	                .setMaxIter(iterations).theta(0.5)
+	                .normalize(false)
+	                .learningRate(500)
+	                .useAdaGrad(false)
+	                //.usePca(false)
+	                .build();
+	
+	        log.info("Store TSNE Coordinates for Plotting....");
+	        String outputFile = "models/test_tSNEmodel.csv";
+	        ((java.io.File) new File(outputFile)).getParentFile().mkdirs();
+	        tsne.plot(weights, 2, cacheList, outputFile);
+	        
+	        BufferedReader csvReader = new BufferedReader(new FileReader(outputFile));
+	        String row;
+	        
+	        while ((row = csvReader.readLine()) != null) {
+	            String[] data = row.split(",");
+	            TermDimension termDimension = new TermDimension();
+	            
+	            termDimension.x = Double.parseDouble(data[0]);
+	            termDimension.y = Double.parseDouble(data[1]);
+	            termDimension.term = data[2];
+	            
+	            termsDim.add(termDimension);
+	        }
+	        
+	        csvReader.close();
+		} else {
+			TermDimension termDimension = new TermDimension();
+			termDimension.x = 0;
+            termDimension.y = 0;
+            termDimension.term = "error";
+            termDimension.error = true;
+            
+            termsDim.add(termDimension);
+		}
+		
+		return termsDim;
 	}
 }

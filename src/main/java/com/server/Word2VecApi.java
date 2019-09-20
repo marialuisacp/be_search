@@ -56,4 +56,9 @@ public class Word2VecApi {
 		return Word2VecUptrainingExample.getMostSimilarFromArray(term, arrayTerms, size, this.vec);
 	}
 	
+	
+	public double[] getVectorByTerm(String term) {
+		return this.vec.getWordVector(term);
+	}
+	
 }

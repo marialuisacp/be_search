@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.deeplearning4j.examples.nlp.word2vec.TSNEDataVisualization;
+import org.deeplearning4j.examples.nlp.word2vec.TermDimension;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -239,6 +241,25 @@ public class DataController {
 	{	
 		return vecApiExternalText.getSimilarWords(term, size);
     }
+	
+	@CrossOrigin(origins = "*")
+    @RequestMapping("/tsne")	
+    public ArrayList<TermDimension> getTSNE(
+    		@RequestParam(value="words", defaultValue="") ArrayList<String> words
+    	) throws IOException {
+		return TSNEDataVisualization.getTSNE(words);
+    }
+	
+	@CrossOrigin(origins = "*")
+    @RequestMapping("/vector")	
+    public double[] getVector(
+    		@RequestParam(value="word", defaultValue="ele") String term
+    	) throws IOException {
+		double[] wordVector = vecApiWikipedia.getVectorByTerm(term);
+		System.out.println(wordVector);
+		return wordVector;
+    }
+	
 	
 	@CrossOrigin(origins = "*")
 	@RequestMapping(method=RequestMethod.POST)
