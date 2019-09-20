@@ -61,4 +61,8 @@ public class Word2VecApi {
 		return this.vec.getWordVector(term);
 	}
 	
+	public Word2Vec getModel() {
+		return this.vec;
+	}
+	
 }
