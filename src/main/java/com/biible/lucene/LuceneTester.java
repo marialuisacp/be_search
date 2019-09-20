@@ -20,8 +20,8 @@ public class LuceneTester {
 	Indexer indexer;
 	Searcher searcher; 
 	
-	public LuceneTester(String lang) {
-		if(lang.equals("en")) {
+   public LuceneTester(String lang) {
+	   if(lang.equals("en")) {
 			this.dataDir = localPath + "/data_en";
 			this.indexDir = localPath + "/index_en"; 
 		} else {
@@ -32,8 +32,7 @@ public class LuceneTester {
 		System.out.println(this.indexDir);
 	}
 
-   public List<Verse> searchTerms(String term, LuceneTester tester, int maxSearch){
-
+public List<Verse> searchTerms(String term, LuceneTester tester, int maxSearch){
 	   List<Verse> result = new ArrayList();
 	   try {
 		   if(maxSearch == 0)
@@ -168,6 +167,4 @@ public class LuceneTester {
       return test_files;
    }
    
-   
-  	
 }

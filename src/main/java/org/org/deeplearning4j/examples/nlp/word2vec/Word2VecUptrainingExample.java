@@ -187,8 +187,10 @@ public class Word2VecUptrainingExample {
     }
     
     public static Word2Vec importModelWikipedia() throws FileNotFoundException {
+    	// Word2Vec vec = WordVectorSerializer.readWord2VecModel("models/trainBible.txt");
     	Word2Vec vec = WordVectorSerializer.loadFullModel("models/train_model_wikipedia.txt");
-    	log.info("loaded from model models/train_model_wikipedia.txt");
+    	log.info("loaded from model wikipedia");
+
         return vec;
     }
     
@@ -205,12 +207,10 @@ public class Word2VecUptrainingExample {
     	for (String s: terms) {
     		 double[] wordVectorS = vec.getWordVector(s);
     		 double[] wordVectorTerm = vec.getWordVector(term);
-    		 System.out.println(wordVectorS); 
-    		 System.out.println(wordVectorTerm);
 
     		 if(wordVectorS != null && wordVectorTerm != null) {
     		   Double cosSim = getSimilarity(s, term, vec);
-    		   System.out.println(s + " " + term + " " + cosSim); 
+
     		   TermItemArray ti = new TermItemArray();
     		   ti.termId = term;
     		   ti.similar = s;
