@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import com.biible.lucene.Term;
 
+import org.deeplearning4j.examples.nlp.word2vec.TSNEDataVisualization;
+import org.deeplearning4j.examples.nlp.word2vec.TermDimension;
 import org.deeplearning4j.examples.nlp.word2vec.Word2VecUptrainingExample;
 import org.deeplearning4j.models.word2vec.Word2Vec;
 
@@ -63,6 +65,10 @@ public class Word2VecApi {
 	
 	public Word2Vec getModel() {
 		return this.vec;
+	}
+	
+	public ArrayList<TermDimension> getTSNE(words, vec) {
+		return TSNEDataVisualization.getTSNE(words, this.vec);
 	}
 	
 }

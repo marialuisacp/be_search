@@ -187,8 +187,8 @@ public class Word2VecUptrainingExample {
     }
     
     public static Word2Vec importModelWikipedia() throws FileNotFoundException {
-//    	 Word2Vec vec = WordVectorSerializer.readWord2VecModel("models/trainBible.txt");
-    	Word2Vec vec = WordVectorSerializer.loadFullModel("models/train_model_wikipedia.txt");
+    	 Word2Vec vec = WordVectorSerializer.readWord2VecModel("models/trainBible.txt");
+//    	Word2Vec vec = WordVectorSerializer.loadFullModel("models/train_model_wikipedia.txt");
     	log.info("loaded from model wikipedia");
         return vec;
     }
