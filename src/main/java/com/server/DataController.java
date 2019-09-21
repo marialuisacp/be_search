@@ -262,6 +262,22 @@ public class DataController {
 		System.out.println(wordVector);
 		return wordVector;
     }
+
+	@CrossOrigin(origins = "*")
+    @RequestMapping("/vectors")	
+    public ArrayList<TermVector> getVectors(
+    		@RequestParam(value="words", defaultValue="ele")  ArrayList<String> words
+    	) throws IOException {
+		ArrayList<TermVector> results = new ArrayList<>();
+		for(String term: words) {
+			TermVector vecT = new TermVector();
+			double[] wordVector = vecApiWikipedia.getVectorByTerm(term);
+			vecT.term = term;
+			vecT.vector = wordVector;
+			results.add(vecT);
+		}
+		return results;
+    }
 	
 	
 	@CrossOrigin(origins = "*")
