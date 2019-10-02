@@ -3,7 +3,11 @@ package com.biible.lucene;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.lucene.analysis.KeywordAnalyzer;
+import org.apache.lucene.analysis.SimpleAnalyzer;
+import org.apache.lucene.analysis.WhitespaceAnalyzer;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.Term;
@@ -31,6 +35,7 @@ public class Searcher {
       Directory indexDirectory = FSDirectory.open(new File(indexDirectoryPath));
       indexSearcher = new IndexSearcher(indexDirectory);
       queryParser = new QueryParser(Version.LUCENE_36, LuceneConstants.CONTENTS, new BrazilianAnalyzer(Version.LUCENE_36));
+//      queryParser = new QueryParser(Version.LUCENE_36, LuceneConstants.CONTENTS, new StandardAnalyzer(Version.LUCENE_36));
    }
    
    public TopDocs search(String searchQuery) 
@@ -58,33 +63,30 @@ public class Searcher {
    
    public TopDocs search(String searchQuery,Sort sort) 
       throws IOException, ParseException{
-      query = queryParser.parse(searchQuery);      	  
+      query = queryParser.parse(searchQuery); 
       return indexSearcher.search(query, LuceneConstants.MAX_SEARCH,sort);
    }
    
    public TopDocs search(String searchQuery,Sort sort, int maxSearch) 
       throws IOException, ParseException{
-      query = queryParser.parse(searchQuery);      	  
+      query = queryParser.parse(searchQuery);
       return indexSearcher.search(query, maxSearch);
    }
    
    public TopDocs searchFuzzy(String searchQuery,Sort sort) 
 		      throws IOException, ParseException{
-      //query = queryParser.parse(searchQuery);
-	  	  
+	   float minimumSimilarity = 0.8f;
 	  Term term = new Term(LuceneConstants.CONTENTS, searchQuery);
-	  query = new FuzzyQuery(term);
-	  System.out.println(term + " " +query);
-      	  
+	  query = new FuzzyQuery(term, minimumSimilarity);
+	        	  
       return indexSearcher.search(query, LuceneConstants.MAX_SEARCH,sort);
    }
    
    public TopDocs searchFuzzy(String searchQuery,Sort sort, int maxSearch) 
 		      throws IOException, ParseException{
-	   //query = queryParser.parse(searchQuery);
-	  	  
+	   float minimumSimilarity = 0.8f;  
 	  Term term = new Term(LuceneConstants.CONTENTS, searchQuery);
-	  query = new FuzzyQuery(term);
+	  query = new FuzzyQuery(term, minimumSimilarity);
 	  System.out.println(term + " " +query);
    	  
 	  return indexSearcher.search(query, maxSearch);

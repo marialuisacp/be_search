@@ -64,7 +64,6 @@ public List<Verse> searchTerms(String term, LuceneTester tester, int maxSearch){
 	  String file_name = "", file_path = "";	  
 	  List<String> test_files = new ArrayList<>();
       
-	  System.out.println("Vai entrar na busca");
 	  searcher = new Searcher(this.indexDir);
       long startTime = System.currentTimeMillis();
       
@@ -79,7 +78,6 @@ public List<Verse> searchTerms(String term, LuceneTester tester, int maxSearch){
     	 
          Document doc = searcher.getDocument(scoreDoc);
          
-//         System.out.println(doc);
          file_name = doc.get(LuceneConstants.FILE_NAME);
          file_path = doc.get(LuceneConstants.FILE_PATH);
          
@@ -116,6 +114,7 @@ public List<Verse> searchTerms(String term, LuceneTester tester, int maxSearch){
       //do the search
       //TopDocs hits = searcher.search(searchQuery, Sort.INDEXORDER);
       
+      System.out.println("searchQuery " + searchQuery);
       TopDocs hits;
       if(maxSearch == 0)
     	  hits = searcher.search(searchQuery, Sort.RELEVANCE);
