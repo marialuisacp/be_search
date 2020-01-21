@@ -80,11 +80,7 @@ public class Data {
     public List<Verse> getResults() {
         return results;
     }
-    
-//    public List<String> getExpansions() {
-//        return expansion;
-//    }
-    
+        
     public List<String> getExpansionsList() {
         return termsrelevance;
     }

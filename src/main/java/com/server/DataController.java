@@ -37,18 +37,22 @@ public class DataController {
 	
 	public DataController() throws IOException{
 		try {
-			testerEn =  new LuceneTester("en");
-			testerEn.createIndex();
-			
-			testerPt = new LuceneTester("pt");
-			testerPt.createIndex();
-			
+			boolean createIndex = false;
 			boolean trainable = false;
+
+			testerEn =  new LuceneTester("en");			
+			testerPt = new LuceneTester("pt");
+
+			if(createIndex) {
+				testerEn.createIndex();
+				testerPt.createIndex();
+			}
+
 			vecApiBible = new Word2VecApi(trainable, false);
 			vecApiExternalText = new Word2VecApi(trainable, true);
 			vecApiWikipedia = new Word2VecApi();
 	     } catch (IOException e) {
-	        e.printStackTrace();
+	    	e.printStackTrace();
 	     }
 	} 
         
@@ -113,7 +117,6 @@ public class DataController {
 	}
 	
 	@CrossOrigin(origins = "*")
-    // @RequestMapping("/similarityfromArray")	
 	@RequestMapping(value = "/similarityfromArray", method = RequestMethod.POST)
 	public Term getSimilaresFromArray(@RequestBody RequestSimilarityArray body) throws IOException
 	{
@@ -132,7 +135,6 @@ public class DataController {
 	@CrossOrigin(origins = "*")
 	@RequestMapping("/similarityfromArray")	
 	public Term getSimilaresFromArrayGet(
-		//@RequestParam(value="terms", defaultValue="ele,ela") List<String> terms,
 		@RequestParam(value="term", defaultValue="ele") String term,
 		@RequestParam(value="size", defaultValue="10") int size,
 		@RequestParam(value="cos", defaultValue="false") boolean hasCosSim) throws IOException
@@ -249,7 +251,6 @@ public class DataController {
     public ArrayList<TermDimension> getTSNE(
     		@RequestParam(value="words", defaultValue="") ArrayList<String> words
     	) throws IOException {
-//		Word2Vec vec = vecApiWikipedia.getModel();
 		return vecApiWikipedia.getTSNE(words);
     }
 	

@@ -11,6 +11,7 @@ import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.search.Explanation;
 
 public class LuceneTester {
  
@@ -67,7 +68,6 @@ public List<Verse> searchTerms(String term, LuceneTester tester, int maxSearch){
 	  searcher = new Searcher(this.indexDir);
       long startTime = System.currentTimeMillis();
       
-      //do the search
       TopDocs hits = searcher.search(searchQuery);
       long endTime = System.currentTimeMillis();
    
@@ -80,10 +80,7 @@ public List<Verse> searchTerms(String term, LuceneTester tester, int maxSearch){
          
          file_name = doc.get(LuceneConstants.FILE_NAME);
          file_path = doc.get(LuceneConstants.FILE_PATH);
-         
-         // return file names 
-         //test_files.add(file_name);
-         
+                  
          try {
              FileReader arq = new FileReader(file_path);
              BufferedReader readFile = new BufferedReader(arq);
@@ -110,10 +107,7 @@ public List<Verse> searchTerms(String term, LuceneTester tester, int maxSearch){
       long startTime = System.currentTimeMillis(); 
       
       searcher.setDefaultFieldSortScoring(true, false);
-      
-      //do the search
-      //TopDocs hits = searcher.search(searchQuery, Sort.INDEXORDER);
-      
+            
       System.out.println("searchQuery " + searchQuery);
       TopDocs hits;
       if(maxSearch == 0)
@@ -130,15 +124,21 @@ public List<Verse> searchTerms(String term, LuceneTester tester, int maxSearch){
           else
         	  hits = searcher.searchFuzzy(searchQuery, Sort.RELEVANCE, maxSearch);
       }
+      
       long endTime = System.currentTimeMillis();
 
       System.out.println(hits.totalHits + " documents found. Time :" + (endTime - startTime) + "ms");
       System.out.println(localPath);
       
       String file_path = "", file_name = "";
+      int countDoc = 0;
       
       for(ScoreDoc scoreDoc : hits.scoreDocs) {
          Document doc = searcher.getDocument(scoreDoc);
+         
+         System.out.println(searchQuery, scoreDoc);
+         // Explanation explain = searcher.explain(searchQuery);
+         countDoc++;
 
          file_path = doc.get(LuceneConstants.FILE_PATH);
          file_name = doc.get(LuceneConstants.FILE_NAME);
