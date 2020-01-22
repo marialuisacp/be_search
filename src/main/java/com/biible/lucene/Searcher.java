@@ -24,86 +24,81 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 
 public class Searcher {
-	
-   IndexSearcher indexSearcher;
-   QueryParser queryParser;
-   Query query;
-   FuzzyQuery fuzzyQuery;
-   
-   public Searcher(String indexDirectoryPath) 
-      throws IOException, ParseException{
-      Directory indexDirectory = FSDirectory.open(new File(indexDirectoryPath));
-      indexSearcher = new IndexSearcher(indexDirectory);
-      queryParser = new QueryParser(Version.LUCENE_36, LuceneConstants.CONTENTS, new BrazilianAnalyzer(Version.LUCENE_36));
-//      queryParser = new QueryParser(Version.LUCENE_36, LuceneConstants.CONTENTS, new StandardAnalyzer(Version.LUCENE_36));
-   }
-   
-   public TopDocs search(String searchQuery) 
-      throws IOException, ParseException{
-      query = queryParser.parse(searchQuery);
-      return indexSearcher.search(query, LuceneConstants.MAX_SEARCH);
-   }
-   
-   public TopDocs search(String searchQuery, int maxSearch) 
-      throws IOException, ParseException{
-      query = queryParser.parse(searchQuery);
-      return indexSearcher.search(query, maxSearch);
-   }
 
-   public TopDocs search(Query query) 
-      throws IOException, ParseException{
-      return indexSearcher.search(query, LuceneConstants.MAX_SEARCH);
-   }
+  IndexSearcher indexSearcher;
+  QueryParser queryParser;
+  Query query;
+  FuzzyQuery fuzzyQuery;
 
-   public TopDocs search(Query query,Sort sort) 
-      throws IOException, ParseException{
-      return indexSearcher.search(query, 
-         LuceneConstants.MAX_SEARCH,sort);
-   }
-   
-   public TopDocs search(String searchQuery,Sort sort) 
-      throws IOException, ParseException{
-      query = queryParser.parse(searchQuery); 
-      return indexSearcher.search(query, LuceneConstants.MAX_SEARCH,sort);
-   }
-   
-   public TopDocs search(String searchQuery,Sort sort, int maxSearch) 
-      throws IOException, ParseException{
-      query = queryParser.parse(searchQuery);
-      return indexSearcher.search(query, maxSearch);
-   }
-   
-   public TopDocs searchFuzzy(String searchQuery,Sort sort) 
-		      throws IOException, ParseException{
-	   float minimumSimilarity = 0.8f;
-	  Term term = new Term(LuceneConstants.CONTENTS, searchQuery);
-	  query = new FuzzyQuery(term, minimumSimilarity);
-	        	  
-      return indexSearcher.search(query, LuceneConstants.MAX_SEARCH,sort);
-   }
-   
-   public TopDocs searchFuzzy(String searchQuery,Sort sort, int maxSearch) 
-		      throws IOException, ParseException{
-	   float minimumSimilarity = 0.8f;  
-	  Term term = new Term(LuceneConstants.CONTENTS, searchQuery);
-	  query = new FuzzyQuery(term, minimumSimilarity);
-	  System.out.println(term + " " +query);
-   	  
-	  return indexSearcher.search(query, maxSearch);
-   }
+  public Searcher(String indexDirectoryPath) throws IOException, ParseException {
+    Directory indexDirectory = FSDirectory.open(new File(indexDirectoryPath));
+    indexSearcher = new IndexSearcher(indexDirectory);
+    queryParser = new QueryParser(Version.LUCENE_36, LuceneConstants.CONTENTS,
+        new BrazilianAnalyzer(Version.LUCENE_36));
+  }
 
-   public void setDefaultFieldSortScoring(boolean doTrackScores, 
-      boolean doMaxScores){
-      indexSearcher.setDefaultFieldSortScoring(
-         doTrackScores,doMaxScores);
-   }
+  public Query getQuery() {
+    return this.query;
+  }
 
-   public Document getDocument(ScoreDoc scoreDoc) 
-      throws CorruptIndexException, IOException{
-      return indexSearcher.doc(scoreDoc.doc);	
-   }
+  public IndexSearcher getIndexSearcher() {
+    return this.indexSearcher;
+  }
 
-   public void close() throws IOException{
-      indexSearcher.close();
-   }
+  public TopDocs search(String searchQuery) throws IOException, ParseException {
+    query = queryParser.parse(searchQuery);
+    return indexSearcher.search(query, LuceneConstants.MAX_SEARCH);
+  }
+
+  public TopDocs search(String searchQuery, int maxSearch) throws IOException, ParseException {
+    query = queryParser.parse(searchQuery);
+    return indexSearcher.search(query, maxSearch);
+  }
+
+  public TopDocs search(Query query) throws IOException, ParseException {
+    return indexSearcher.search(query, LuceneConstants.MAX_SEARCH);
+  }
+
+  public TopDocs search(Query query, Sort sort) throws IOException, ParseException {
+    return indexSearcher.search(query, LuceneConstants.MAX_SEARCH, sort);
+  }
+
+  public TopDocs search(String searchQuery, Sort sort) throws IOException, ParseException {
+    query = queryParser.parse(searchQuery);
+    return indexSearcher.search(query, LuceneConstants.MAX_SEARCH, sort);
+  }
+
+  public TopDocs search(String searchQuery, Sort sort, int maxSearch) throws IOException, ParseException {
+    query = queryParser.parse(searchQuery);
+    return indexSearcher.search(query, maxSearch);
+  }
+
+  public TopDocs searchFuzzy(String searchQuery, Sort sort) throws IOException, ParseException {
+    float minimumSimilarity = 0.8f;
+    Term term = new Term(LuceneConstants.CONTENTS, searchQuery);
+    query = new FuzzyQuery(term, minimumSimilarity);
+
+    return indexSearcher.search(query, LuceneConstants.MAX_SEARCH, sort);
+  }
+
+  public TopDocs searchFuzzy(String searchQuery, Sort sort, int maxSearch) throws IOException, ParseException {
+    float minimumSimilarity = 0.8f;
+    Term term = new Term(LuceneConstants.CONTENTS, searchQuery);
+    query = new FuzzyQuery(term, minimumSimilarity);
+    System.out.println(term + " " + query);
+
+    return indexSearcher.search(query, maxSearch);
+  }
+
+  public void setDefaultFieldSortScoring(boolean doTrackScores, boolean doMaxScores) {
+    indexSearcher.setDefaultFieldSortScoring(doTrackScores, doMaxScores);
+  }
+
+  public Document getDocument(ScoreDoc scoreDoc) throws CorruptIndexException, IOException {
+    return indexSearcher.doc(scoreDoc.doc);
+  }
+
+  public void close() throws IOException {
+    indexSearcher.close();
+  }
 }
