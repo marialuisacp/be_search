@@ -102,12 +102,6 @@ public class Word2VecUptrainingExample {
         for (String stpw : stopWords) {
             if (words.contains(stpw)) words.remove(stpw);
         }
-//        if (words.size() >= s_similar_terms) {
-//            for (int q = 0; q < s_similar_terms; q++) {
-//                noStopWords.add(words.get(q));
-//            }
-//            return noStopWords;
-//        }
 
         return words;
     }
@@ -156,10 +150,6 @@ public class Word2VecUptrainingExample {
             .useAdaGrad(false)
             .learningRate(0.025)
             .minLearningRate(0.01)
-            //.setNGrams(1)
-            //.setVectorsListeners()
-            //.setTokenPreprocessor("org.deeplearning4j.text.tokenization.tokenizer.preprocessor.CommonPreprocessor")
-            //.setRemoveStop(false)
             .useUnknown(true)
             .build();
 
@@ -191,7 +181,6 @@ public class Word2VecUptrainingExample {
     public static Word2Vec importModelWikipedia() throws FileNotFoundException {
     	
     	DataTypeUtil.setDTypeForContext(DataBuffer.Type.DOUBLE);
-//    	Word2Vec vec = WordVectorSerializer.readWord2VecModel("models/trainBible.txt");
     	Word2Vec vec = WordVectorSerializer.loadFullModel("models/train_model_wikipedia.txt");
     	log.info("loaded from model wikipedia");
 
