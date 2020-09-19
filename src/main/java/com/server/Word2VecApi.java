@@ -44,8 +44,8 @@ public class Word2VecApi {
     		}
     	}
 	}
-	public List<String> getSimilarWords(String term, int sizeNeighborhood) throws IOException {
-      List<String> words_result = Word2VecUptrainingExample.getSimilarWordsWithoutStopWords(term, sizeNeighborhood, this.vec);
+	public List<String> getSimilarWords(String term, int sizeNeighborhood) throws IOException {	  
+	  List<String> words_result = Word2VecUptrainingExample.getSimilarWordsWithoutStopWords(term, sizeNeighborhood, this.vec);
       return words_result;
 	}
 	

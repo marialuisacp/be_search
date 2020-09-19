@@ -5,7 +5,7 @@ public class TermItemArray {
 	public String similar;
 	public Double cosSim;
 	
-	public Double getSimilarityCOeficient() {
+	public Double getSimilarityCoeficient() {
 	    return cosSim;
 	  }
 }

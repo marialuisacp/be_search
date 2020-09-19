@@ -33,6 +33,10 @@ import static java.lang.Integer.valueOf;
 import com.biible.lucene.Term;
 import com.biible.lucene.TermItemArray;
 
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import static java.nio.charset.StandardCharsets.*;
+
 public class Word2VecUptrainingExample {
 
     public static final int S_SIMILAR_TERMS = 10;
@@ -52,12 +56,12 @@ public class Word2VecUptrainingExample {
      * readFileTest        Function for ready files of tests
      */
     public static void setStopWordsPt() {
-        String[] palavras = {"a", "à", "é", "abaixo", "acaso", "portanto", "acima", "acolá", "adiante", "adrede", "afinal", "afora", "agora", "aí", "ainda", "além", "alerta", "algo", "alguém", "algum", "alguma", "algumas", "alguns", "algures", "alhures", "ali", "aliás", "amanhã", "amiúde", "ampla", "amplas", "amplo", "amplos", "ante", "anteontem", "antes", "antigamente", "ao", "aonde", "aos", "apenas", "após", "aquela", "aquelas", "aquele", "aqueles", "aquém", "aqui", "aquilo", "as", "às", "assaz", "assim", "até", "atrás", "através", "avante", "bastante", "bem", "breve", "brevemente", "cá", "cada", "calmamente", "cedo", "certamente", "certo", "cima", "coisa", "coisas", "com", "como", "completamente", "completo", "comumente", "concomitantemente", "conseguintemente", "consequentemente", "contra", "contudo", "cor", "corajosamente", "da", "dantes", "daquele", "daqueles", "das", "de", "debaixo", "debalde", "decerto", "defronte", "dela", "delas", "dele", "deles", "demais", "demasiadamente", "demasiado", "dentro", "depois", "depressa", "desde", "dessa", "dessas", "desse", "desses", "desta", "destas", "deste", "destes", "detrás", "devagar", "deve", "devem", "devendo", "dever", "deverá", "deverão", "deveras", "deveria", "deveriam", "devia", "deviam", "diante", "diariamente", "dificilmente", "direita", "disse", "disso", "distância", "disto", "dito", "diz", "dizem", "do", "donde", "doravante", "dos", "e", "é", "efetivamente", "eis", "Eis", "ela", "elas", "ele", "eles", "em", "enfim", "enquanto", "então", "entre", "entrementes", "era", "eram", "éramos", "esquerda", "essa", "essas", "esse", "esses", "esta", "está", "estamos", "estão", "estas", "estava", "estavam", "estávamos", "este", "esteja", "estejam", "estejamos", "estes", "esteve", "estive", "estivemos", "estiver", "estivera", "estiveram", "estivéramos", "estiverem", "estivermos", "estivesse", "estivessem", "estivéssemos", "estou", "eu", "excessivamente", "excesso", "exclusivamente", "extremamente", "fazendo", "fazer", "feita", "feitas", "feito", "feitos", "felizmente", "finalmente", "foi", "fomos", "for", "fora", "foram", "fôramos", "forem", "forma", "formos", "fosse", "fossem", "fôssemos", "frente", "fui", "geral", "grande", "grandemente", "grandes", "há", "haja", "hajam", "hajamos", "hão", "havemos", "havia", "hei", "hoje", "houve", "houvemos", "houver", "houvera", "houverá", "houveram", "houvéramos", "houverão", "houverei", "houverem", "houveremos", "houveria", "houveriam", "houveríamos", "houvermos", "houvesse", "houvessem", "houvéssemos", "imediatamente", "inclusivamente", "inclusive", "incontestavelmente", "intensamente", "isso", "isto", "já", "jamais", "jeito", "la", "lá", "lado", "levemente", "lhe", "lhes", "ligeiramente", "livremente", "lo", "logo", "longe", "mais", "mal", "mas", "me", "meio", "melhor", "menos", "mesma", "mesmas", "mesmo", "mesmos", "meu", "meus", "minha", "minhas", "modo", "mui", "muita", "muitas", "muito", "muitos", "na", "nada", "não", "nas", "nem", "nenhum", "nenhuma", "nenhures", "nessa", "nessas", "nesta", "nestas", "ninguém", "no", "nomeadamente", "nos", "nós", "nossa", "nossas", "nosso", "nossos", "num", "numa", "nunca", "o", "ó", "onde", "ontem", "ora", "os", "ou", "outra", "outras", "outro", "outrora", "outros", "para", "passo", "pela", "pelas", "pelo", "pelos", "penas", "pequena", "pequenas", "pequeno", "pequenos", "per", "perante", "perto", "pior", "pode", "podendo", "poder", "poderia", "poderiam", "podia", "podiam", "pois", "por", "porém", "porque", "porquê", "porquanto", "segundo", "dizendo", "mim", "causa", "porventura", "possivelmente", "posso", "pouca", "poucas", "pouco", "poucos", "presentemente", "pressa", "primeiramente", "primeiro", "primeiros", "principalmente", "profundamente", "propositadamente", "própria", "próprias", "próprio", "próprios", "provavelmente", "pude", "quais", "qual", "quando", "quanto", "quantos", "quão", "quase", "que", "quem", "quiçá", "raramente", "realmente", "sabe", "salvo", "são", "se", "seguramente", "seja", "sejam", "sejamos", "selvaticamente", "sem", "sempre", "senão", "sendo", "ser", "será", "serão", "serei", "seremos", "seria", "seriam", "seríamos", "seu", "seus", "si", "sido", "sim", "simplesmente", "simultaneamente", "só", "sob", "sobre", "sobremaneira", "sobremodo", "sobretudo", "somente", "somos", "soslaio", "sou", "sua", "suas", "talvez", "também", "tampouco", "tanto", "tão", "tarde", "te", "tem", "tém", "têm", "temos", "tendo", "tenha", "tenham", "tenhamos", "tenho", "ter", "terá", "terão", "terei", "teremos", "teria", "teriam", "teríamos", "teu", "teus", "teve", "ti", "tido", "tinha", "tinham", "tínhamos", "tive", "tivemos", "tiver", "tivera", "tiveram", "tivéramos", "tiverem", "tivermos", "tivesse", "tivessem", "tivéssemos", "toda", "todas", "todavia", "todo", "todos", "tu", "tua", "tuas", "tudo", "última", "ultimamente", "últimas", "último", "últimos", "um", "uma", "umas", "unicamente", "uns", "vão", "vendo", "ver", "vez", "vezes", "vindo", "vir", "você", "vocês", "volta", "vos", "vós", "/", ".", ";", ",", "!", ":", "?", "’", "“", "”", "–", "'"};
-        //String[] palavras = {"a", "about", "above", "across", "after", "afterwards", "again", "against", "all", "almost", "alone", "along", "already", "also", "although", "always", "am", "among", "amongst", "amoungst", "amount", "an", "and", "another", "any", "anyhow", "anyone", "anything", "anyway", "anywhere", "are", "around", "as", "at", "back", "be", "became", "because", "become", "becomes", "becoming", "been", "before", "beforehand", "behind", "being", "below", "beside", "besides", "between", "beyond", "bill", "both", "bottom", "but", "by", "call", "can", "cannot", "cant", "co", "computer", "con", "could", "couldnt", "cry", "de", "describe", "detail", "do", "done", "down", "due", "during", "each", "eg", "eight", "either", "eleven", "else", "elsewhere", "empty", "enough", "etc", "even", "ever", "every", "everyone", "everything", "everywhere", "except", "few", "fifteen", "fify", "fill", "find", "fire", "first", "five", "for", "former", "formerly", "forty", "found", "four", "from", "front", "full", "further", "get", "give", "go", "had", "has", "hasnt", "have", "he", "hence", "her", "here", "hereafter", "hereby", "herein", "hereupon", "hers", "herse", "him", "himse", "his", "how", "however", "hundred", "i", "ie", "if", "in", "inc", "indeed", "interest", "into", "is", "it", "its", "itse", "keep", "last", "latter", "latterly", "least", "less", "ltd", "made", "many", "may", "me", "meanwhile", "might", "mill", "mine", "more", "moreover", "most", "mostly", "move", "much", "must", "my", "myse", "name", "namely", "neither", "never", "nevertheless", "next", "nine", "no", "nobody", "none", "noone", "nor", "not", "nothing", "now", "nowhere", "of", "off", "often", "on", "once", "one", "only", "onto", "or", "other", "others", "otherwise", "our", "ours", "ourselves", "out", "over", "own", "part", "per", "perhaps", "please", "put", "rather", "re", "same", "see", "seem", "seemed", "seeming", "seems", "serious", "several", "she", "should", "show", "side", "since", "sincere", "six", "sixty", "so", "some", "somehow", "someone", "something", "sometime", "sometimes", "somewhere", "still", "such", "system", "take", "ten", "than", "that", "the", "their", "them", "themselves", "then", "thence", "there", "thereafter", "thereby", "therefore", "therein", "thereupon", "these", "they", "thick", "thin", "third", "this", "those", "though", "three", "through", "throughout", "thru", "thus", "to", "together", "too", "top", "toward", "towards", "twelve", "twenty", "two", "un", "under", "until", "up", "upon", "us", "very", "via", "was", "we", "well", "were", "what", "whatever", "when", "whence", "whenever", "where", "whereafter", "whereas", "whereby", "wherein", "whereupon", "wherever", "whether", "which", "while", "whither", "who", "whoever", "whole", "whom", "whose", "why", "will", "with", "within", "without", "would", "yet", "you", "your", "yours", "yourself", "yourselves"};
+        String[] wordsPt = {"a", "à", "é", "abaixo", "acaso", "portanto", "acima", "acolá", "adiante", "adrede", "afinal", "afora", "agora", "aí", "ainda", "além", "alerta", "algo", "alguém", "algum", "alguma", "algumas", "alguns", "algures", "alhures", "ali", "aliás", "amanhã", "amiúde", "ampla", "amplas", "amplo", "amplos", "ante", "anteontem", "antes", "antigamente", "ao", "aonde", "aos", "apenas", "após", "aquela", "aquelas", "aquele", "aqueles", "aquém", "aqui", "aquilo", "as", "às", "assaz", "assim", "até", "atrás", "através", "avante", "bastante", "bem", "breve", "brevemente", "cá", "cada", "calmamente", "cedo", "certamente", "certo", "cima", "coisa", "coisas", "com", "como", "completamente", "completo", "comumente", "concomitantemente", "conseguintemente", "consequentemente", "contra", "contudo", "cor", "corajosamente", "da", "dantes", "daquele", "daqueles", "das", "de", "debaixo", "debalde", "decerto", "defronte", "dela", "delas", "dele", "deles", "demais", "demasiadamente", "demasiado", "dentro", "depois", "depressa", "desde", "dessa", "dessas", "desse", "desses", "desta", "destas", "deste", "destes", "detrás", "devagar", "deve", "devem", "devendo", "dever", "deverá", "deverão", "deveras", "deveria", "deveriam", "devia", "deviam", "diante", "diariamente", "dificilmente", "direita", "disse", "disso", "distância", "disto", "dito", "diz", "dizem", "do", "donde", "doravante", "dos", "e", "é", "efetivamente", "eis", "Eis", "ela", "elas", "ele", "eles", "em", "enfim", "enquanto", "então", "entre", "entrementes", "era", "eram", "éramos", "esquerda", "essa", "essas", "esse", "esses", "esta", "está", "estamos", "estão", "estas", "estava", "estavam", "estávamos", "este", "esteja", "estejam", "estejamos", "estes", "esteve", "estive", "estivemos", "estiver", "estivera", "estiveram", "estivéramos", "estiverem", "estivermos", "estivesse", "estivessem", "estivéssemos", "estou", "eu", "excessivamente", "excesso", "exclusivamente", "extremamente", "fazendo", "fazer", "feita", "feitas", "feito", "feitos", "felizmente", "finalmente", "foi", "fomos", "for", "fora", "foram", "fôramos", "forem", "forma", "formos", "fosse", "fossem", "fôssemos", "frente", "fui", "geral", "grande", "grandemente", "grandes", "há", "haja", "hajam", "hajamos", "hão", "havemos", "havia", "hei", "hoje", "houve", "houvemos", "houver", "houvera", "houverá", "houveram", "houvéramos", "houverão", "houverei", "houverem", "houveremos", "houveria", "houveriam", "houveríamos", "houvermos", "houvesse", "houvessem", "houvéssemos", "imediatamente", "inclusivamente", "inclusive", "incontestavelmente", "intensamente", "isso", "isto", "já", "jamais", "jeito", "la", "lá", "lado", "levemente", "lhe", "lhes", "ligeiramente", "livremente", "lo", "logo", "longe", "mais", "mal", "mas", "me", "meio", "melhor", "menos", "mesma", "mesmas", "mesmo", "mesmos", "meu", "meus", "minha", "minhas", "modo", "mui", "muita", "muitas", "muito", "muitos", "na", "nada", "não", "nas", "nem", "nenhum", "nenhuma", "nenhures", "nessa", "nessas", "nesta", "nestas", "ninguém", "no", "nomeadamente", "nos", "nós", "nossa", "nossas", "nosso", "nossos", "num", "numa", "nunca", "o", "ó", "onde", "ontem", "ora", "os", "ou", "outra", "outras", "outro", "outrora", "outros", "para", "passo", "pela", "pelas", "pelo", "pelos", "penas", "pequena", "pequenas", "pequeno", "pequenos", "per", "perante", "perto", "pior", "pode", "podendo", "poder", "poderia", "poderiam", "podia", "podiam", "pois", "por", "porém", "porque", "porquê", "porquanto", "segundo", "dizendo", "mim", "causa", "porventura", "possivelmente", "posso", "pouca", "poucas", "pouco", "poucos", "presentemente", "pressa", "primeiramente", "primeiro", "primeiros", "principalmente", "profundamente", "propositadamente", "própria", "próprias", "próprio", "próprios", "provavelmente", "pude", "quais", "qual", "quando", "quanto", "quantos", "quão", "quase", "que", "quem", "quiçá", "raramente", "realmente", "sabe", "salvo", "são", "se", "seguramente", "seja", "sejam", "sejamos", "selvaticamente", "sem", "sempre", "senão", "sendo", "ser", "será", "serão", "serei", "seremos", "seria", "seriam", "seríamos", "seu", "seus", "si", "sido", "sim", "simplesmente", "simultaneamente", "só", "sob", "sobre", "sobremaneira", "sobremodo", "sobretudo", "somente", "somos", "soslaio", "sou", "sua", "suas", "talvez", "também", "tampouco", "tanto", "tão", "tarde", "te", "tem", "tém", "têm", "temos", "tendo", "tenha", "tenham", "tenhamos", "tenho", "ter", "terá", "terão", "terei", "teremos", "teria", "teriam", "teríamos", "teu", "teus", "teve", "ti", "tido", "tinha", "tinham", "tínhamos", "tive", "tivemos", "tiver", "tivera", "tiveram", "tivéramos", "tiverem", "tivermos", "tivesse", "tivessem", "tivéssemos", "toda", "todas", "todavia", "todo", "todos", "tu", "tua", "tuas", "tudo", "última", "ultimamente", "últimas", "último", "últimos", "um", "uma", "umas", "unicamente", "uns", "vão", "vendo", "ver", "vez", "vezes", "vindo", "vir", "você", "vocês", "volta", "vos", "vós", "/", ".", ";", ",", "!", ":", "?", "’", "“", "”", "–", "'"};
+        String[] wordsEn = {"a", "about", "above", "across", "after", "afterwards", "again", "against", "all", "almost", "alone", "along", "already", "also", "although", "always", "am", "among", "amongst", "amoungst", "amount", "an", "and", "another", "any", "anyhow", "anyone", "anything", "anyway", "anywhere", "are", "around", "as", "at", "back", "be", "became", "because", "become", "becomes", "becoming", "been", "before", "beforehand", "behind", "being", "below", "beside", "besides", "between", "beyond", "bill", "both", "bottom", "but", "by", "call", "can", "cannot", "cant", "co", "computer", "con", "could", "couldnt", "cry", "de", "describe", "detail", "do", "done", "down", "due", "during", "each", "eg", "eight", "either", "eleven", "else", "elsewhere", "empty", "enough", "etc", "even", "ever", "every", "everyone", "everything", "everywhere", "except", "few", "fifteen", "fify", "fill", "find", "fire", "first", "five", "for", "former", "formerly", "forty", "found", "four", "from", "front", "full", "further", "get", "give", "go", "had", "has", "hasnt", "have", "he", "hence", "her", "here", "hereafter", "hereby", "herein", "hereupon", "hers", "herse", "him", "himse", "his", "how", "however", "hundred", "i", "ie", "if", "in", "inc", "indeed", "interest", "into", "is", "it", "its", "itse", "keep", "last", "latter", "latterly", "least", "less", "ltd", "made", "many", "may", "me", "meanwhile", "might", "mill", "mine", "more", "moreover", "most", "mostly", "move", "much", "must", "my", "myse", "name", "namely", "neither", "never", "nevertheless", "next", "nine", "no", "nobody", "none", "noone", "nor", "not", "nothing", "now", "nowhere", "of", "off", "often", "on", "once", "one", "only", "onto", "or", "other", "others", "otherwise", "our", "ours", "ourselves", "out", "over", "own", "part", "per", "perhaps", "please", "put", "rather", "re", "same", "see", "seem", "seemed", "seeming", "seems", "serious", "several", "she", "should", "show", "side", "since", "sincere", "six", "sixty", "so", "some", "somehow", "someone", "something", "sometime", "sometimes", "somewhere", "still", "such", "system", "take", "ten", "than", "that", "the", "their", "them", "themselves", "then", "thence", "there", "thereafter", "thereby", "therefore", "therein", "thereupon", "these", "they", "thick", "thin", "third", "this", "those", "though", "three", "through", "throughout", "thru", "thus", "to", "together", "too", "top", "toward", "towards", "twelve", "twenty", "two", "un", "under", "until", "up", "upon", "us", "very", "via", "was", "we", "well", "were", "what", "whatever", "when", "whence", "whenever", "where", "whereafter", "whereas", "whereby", "wherein", "whereupon", "wherever", "whether", "which", "while", "whither", "who", "whoever", "whole", "whom", "whose", "why", "will", "with", "within", "without", "would", "yet", "you", "your", "yours", "yourself", "yourselves"};
 
         int csp = 0;
-        for (csp = 0; csp < palavras.length; csp++) {
-            stopWordsPt.add(palavras[csp]);
+        for (csp = 0; csp < wordsPt.length; csp++) {
+            stopWordsPt.add(wordsPt[csp]);
         }
     }
    
@@ -69,7 +73,14 @@ public class Word2VecUptrainingExample {
      * @return cosSim          coefficient of similarity between strings
      */
     public static double getSimilarity(String a, String b, Word2Vec vec) {
-        double cosSim = vec.similarity(a, b);
+        double cosSim = 0;
+
+        try {
+            cosSim = vec.similarity(convertCharsetString(a), convertCharsetString(b));
+        } catch(IOException e) {
+            cosSim = vec.similarity(a, b);
+        }
+        
         return cosSim;
     }
 
@@ -80,10 +91,34 @@ public class Word2VecUptrainingExample {
      * @param term word for analysis
      * @return lst         list with items most similarity
      */
-    public static ArrayList<String> getClosestWords(String term, int size, Word2Vec vec) {
-        ArrayList<String> lst = (ArrayList<String>) vec.wordsNearest(term, size);
-
+    public static ArrayList<String> getClosestWords(String term, int size, Word2Vec vec) throws IOException{
+        String encondedWord = convertCharsetString(term);
+        ArrayList<String> lst = (ArrayList<String>) vec.wordsNearest(encondedWord, size);
         return lst;
+    }
+/**
+     * convertChartsetArrayStrings     Function convert from ISO-8859-1 to UTF-8
+     *
+     * @param words             list words to convert
+     * @return convertedWords   word list converted
+     */
+    public static List<String> convertChartsetArrayStrings(List<String> words) throws IOException {
+        List<String> convertedWords = new ArrayList<>();        
+        for (String similarWord : words) {
+            convertedWords.add(new String(similarWord.getBytes("ISO-8859-1"), "UTF-8"));
+        }
+
+        return convertedWords;
+    }
+
+    /**
+     * convertCharsetString
+     *
+     * @param word
+     * @return convertedWord
+     */
+    public static String convertCharsetString(String word) throws IOException {
+        return new String(word.getBytes("UTF-8"), "ISO-8859-1");
     }
 
     /**
@@ -97,13 +132,14 @@ public class Word2VecUptrainingExample {
     public static List<String> getSimilarWordsWithoutStopWords(String word, int ps, Word2Vec vec) throws IOException {
         stopWords = stopWordsPt;
         int s_similar_terms = 1;
+        
         List<String> words = getClosestWords(word, ps, vec);
         List<String> noStopWords = new ArrayList<>();
+
         for (String stpw : stopWords) {
             if (words.contains(stpw)) words.remove(stpw);
         }
-
-        return words;
+        return convertChartsetArrayStrings(words);
     }
 
     /**
@@ -179,24 +215,40 @@ public class Word2VecUptrainingExample {
     }
     
     public static Word2Vec importModelWikipedia() throws FileNotFoundException {
-    	
     	DataTypeUtil.setDTypeForContext(DataBuffer.Type.DOUBLE);
-    	Word2Vec vec = WordVectorSerializer.loadFullModel("models/train_model_wikipedia.txt");
+    	Word2Vec vec = WordVectorSerializer.readWord2VecModel("models/word2vecBin.model");
     	log.info("loaded from model wikipedia");
 
         return vec;
     }
     
+    
     public static Term getMostSimilarFromArray(String term, List<String> arrayTerms, int size, Word2Vec vec) {
     	List<Double> cosSims = new ArrayList<Double>();
     	List<String> sims = new ArrayList<String>();
+        List<String> terms = new ArrayList<String>();
+
 		Term t = new Term();
-		t.termId = term;
+        
+        try {
+            t.termId = convertCharsetString(term);
+        } catch(IOException e) {
+            t.termId = term;
+        }
+
 		t.cosSims = cosSims;
 		t.similares = sims;
-		List<String> terms = (ArrayList<String>) arrayTerms;
+
+        try {
+           terms = (ArrayList<String>) convertChartsetArrayStrings(arrayTerms);
+        } catch(IOException e) {
+           terms = (ArrayList<String>) arrayTerms;
+        }
+		
     	List<TermItemArray> listItens = new ArrayList<TermItemArray>();
     	
+        System.out.println("      tamanho do array: " + terms.size());
+
     	for (String s: terms) {
     		 double[] wordVectorS = vec.getWordVector(s);
     		 double[] wordVectorTerm = vec.getWordVector(term);
@@ -215,7 +267,7 @@ public class Word2VecUptrainingExample {
     	Collections.sort(listItens, new Comparator<TermItemArray>() {
 		  @Override
 		  public int compare(TermItemArray t1, TermItemArray t2) {
-		    return t2.getSimilarityCOeficient().compareTo(t1.getSimilarityCOeficient());
+		    return t2.getSimilarityCoeficient().compareTo(t1.getSimilarityCoeficient());
 		  }
 		});
     	int countMostSimilares = 0;
