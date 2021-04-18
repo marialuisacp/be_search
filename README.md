@@ -1,45 +1,46 @@
 # Be - RI (Information Retrieval)
 
-### Sobre o repositório
+### About
 
-Este repositório utiliza:
+This project is using:
 
 * Apache Lucene
-* DeepLearning4j para Word2Vec
+* DeepLearning4j to Word2Vec
 
-### Setup da aplicação
+### Application Setup
 
-Primeiro passo é a instalação do java jre e jdk.
-Depois instalação do Maven.
+First step is the installation of java jre e jdk.
+After, install Maven. 
 
-* Importante instalar a versão 8 do Java.
+* Is important to install java in version 8.
 
 ```
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_241.jdk/Contents/Home
 ```
 
-Se quiser verificar qual a versão o Maven está rodando basta executar:
+If you want to check what version of Maven is running on project, you can run:
 
 ```
 mvn -v
 ```
-Os diretórios abaixo precisam existir no repositório já com os arquivos a serem indexados pelo Lucene. O download dos arquivos pode ser feito pelo [link](https://drive.google.com/drive/folders/170MP2rcKuvjubUTEfeIfTVXFNYPlhaCm). 
+
+The data paths below, need to exists on repository with the files to be indexing for Lucene. The download of files can be done for the link: [link](https://drive.google.com/drive/folders/170MP2rcKuvjubUTEfeIfTVXFNYPlhaCm). 
 
 * data_pt/
 * data_en/
 
-Os diretórios abaixo também precisam existir, e neles serão armazenados os índices do Lucene.
+The paths below need exists too and in there will be created the Lucene indexes.
 
 * index_en/
 * index_pt/
 
-Os textos a serem indexados pelo Word2Vec deverão estar na pasta
+The texts to be indexed for Word2Vec have to be in the path:
 
 * texts/
 
-### Para rodar a aplicação
+### Running
 
-Para rodar a aplicação execute:
+To run application:
 
 ```
 mvn spring-boot:run
